@@ -1,0 +1,49 @@
+body {
+    overflow: hidden;
+}
+.container {
+    display: flex;
+    justify-content: center; /* Aligns horizontally */
+    align-items: center; /* Aligns vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+a {
+    color: oklch(var(--p));
+    cursor: pointer;
+    /*text-decoration: underline;*/
+}
+
+.down-arrow::after {
+    content: '➔'; /* The arrow character */
+    display: inline-block;
+    transform: rotate(90deg); /* Rotate 90 degrees */
+    margin-left: 5px; /* Optional: Adjust spacing if needed */
+}
+
+.help {
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+    border: 1.5px solid oklch(var(--bc) / 0.2);
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 85% !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #file {
+        width: 100% !important;
+    }
+}
+

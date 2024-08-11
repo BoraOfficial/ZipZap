@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="{{ url_for('static', filename='ip-auth.js') }}"></script>
+  <link href="{{ url_for('static', filename='daisyui-full.min.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css" />
+
+  <title>ZipZap - Transfer files with ease</title>
+</head>
+
+<body>
+  <script>
+
+  </script>
+
+
+
+  <div class="help" onclick="my_modal_1.showModal()">?</div>
+  <dialog id="my_modal_1" class="modal">
+    <div class="modal-box">
+      <h2 style="font-weight: bold;">How does it work?</h2>
+      <p>1 - Upload any file you want to transfer here.<br>2 - Open <code id="currUrl"
+          style="background: rgba(0, 0, 0, 0.2);-webkit-user-select: all;user-select: all;"></code> on another
+        device.<br>3 - Click on the file you want to download.<br><br>The files you click on will be deleted after a
+        minute for maximum privacy.</p>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn">OK</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+  <div class="container">
+    <div class="card" style="width: 45%;border: 2px solid oklch(var(--bc) / 0.2);text-align: center !important;">
+      <div class="card-body">
+        <h2 class="card-title" style="display: block;">Uploaded Files</h2>
+        <br>
+        <p>View the files you have uploaded here. Anyone with the same IP address as you can view them unless you open
+          it first.</p>
+        <br>
+        <ul class="menu menu-sm bg-base-200 rounded-box w-56">
+          {% if files %}
+          {% for file in files %}
+          <li>
+            <a class="lanFiles" href="{{ url_for('download_file', filename=file.filename) }}">{{ file.original }}</a>
+          </li>
+          {% endfor %}
+
+          {% else %}
+          <li class="down-arrow">Get started by uploading a file</li>
+          {% endif %}
+        </ul>
+        <a onclick="scrollToBottom()">Upload files</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="card" style="width: 45%;border: 2px solid oklch(var(--bc) / 0.2);text-align: center !important;">
+      <div class="card-body">
+        <h2 class="card-title" style="display: block;">Upload a File</h2>
+        <br>
+        <p>Upload any type of file you want here. Maximum size is 100MB. Your files will be automatically deleted after
+          being opened.</p>
+        <br>
+        <form action="/upload" method="post" enctype="multipart/form-data" id="form">
+          <input type="file" name="file" class="file-input file-input-bordered w-full max-w-xs" id="file">
+          <!--<input type="button" value="Upload" onclick="ipVal()">-->
+          <input type="hidden" name="ip" id="ip">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        </form>
+        <a onclick="scrollToTop()">View files</a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <script>
+    const fileInput = document.getElementById('file');
+
+    function handleFileChange(event) {
+      const file = event.target.files[0]; // Get the first selected file
+
+      if (file) {
+        ipVal()
+      }
+    }
+
+    fileInput.addEventListener('change', handleFileChange);
+  </script>
+</body>
+
+</html>
