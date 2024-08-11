@@ -1,4 +1,4 @@
-# ZipZap
+# ⚡ZipZap
 A Python Flask web app for transferring files between local devices. Fully responsive web app.
 
 # Showcase
